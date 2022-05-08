@@ -30,5 +30,13 @@ pipeline {
               }
             }
         }
+        stage('Kubernetes Deployment - DEV') {
+            steps {
+              withDockerRegistry([credentialsId: 'kube-config']) {
+              sh "sed -i 's#replace#curtissananapo/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml > k8s_deployment_service_new.yaml"
+              sh "kubectl apply -f k8s_deployment_service_new.yaml"
+              }
+            }
+        }
     }
 }
