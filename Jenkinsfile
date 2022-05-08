@@ -19,6 +19,7 @@ pipeline {
                   jacoco execPattern: 'target/jacoco.exec'
                 }
               }
+        }
       stage('Build Artifact') {
             steps {
               sh "mvn clean package -DskipTests=true"
