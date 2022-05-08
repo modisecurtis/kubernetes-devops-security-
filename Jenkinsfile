@@ -19,7 +19,6 @@ pipeline {
                   jacoco execPattern: 'target/jacoco.exec'
                 }
               }
-           }
         }
 
         stage('Docker Build and Push') {
@@ -30,3 +29,4 @@ pipeline {
             }
         }
     }
+}
