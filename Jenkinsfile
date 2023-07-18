@@ -21,27 +21,16 @@ pipeline {
               }
         }
 // docker hub
-        // stage('Docker Build and Push') {
-        //     steps {
-        //       withDockerRegistry([credentialsId: "docker-hub", url:""]) {
-        //       sh 'printenv'
-        //       sh 'docker build -t curtissananapo/numeric-app:""$GIT_COMMIT"" .'
-        //       sh 'docker push curtissananapo/numeric-app:""$GIT_COMMIT""'
-        //       }
-        //     }
-        // }
-
-        stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-        * First, the incremental build number from Jenkins
-        * Second, the 'latest' tag. */
-        withCredentials([usernamePassword( credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-
-        docker.withRegistry('', 'docker-hub-credentials') {
-        sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-        myImage.push("${env.BUILD_NUMBER}")
-        myImage.push("latest")
+        stage('Docker Build and Push') {
+            steps {
+              withDockerRegistry([credentialsId: "docker-hub", url:""]) {
+              sh 'printenv'
+              sh 'docker build -t curtissananapo/numeric-app:""$GIT_COMMIT"" .'
+              sh 'docker push curtissananapo/numeric-app:""$GIT_COMMIT""'
+              }
+            }
         }
+
 
 //         stage('Kubernetes Deployment - LOCAL') {
 //             steps {
