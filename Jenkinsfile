@@ -20,7 +20,7 @@ pipeline {
                 }
               }
         }
-// docker hub
+// docker hub-1
         stage('Docker Build and Push') {
             steps {
               withDockerRegistry([credentialsId: "docker-hub", url:""]) {
@@ -31,14 +31,14 @@ pipeline {
             }
         }
 
-
-//         stage('Kubernetes Deployment - LOCAL') {
-//             steps {
-//               withKubeConfig([credentialsId: 'kubeconfig']) {
-//               sh "sed -i 's#replace#curtissananapo/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-//               sh "kubectl apply -f k8s_deployment_service.yaml"
-//               }
-//             }
-//         }
+//
+        stage('Kubernetes Deployment - LOCAL') {
+            steps {
+              withKubeConfig([credentialsId: 'kubeconfig']) {
+              sh "sed -i 's#replace#curtissananapo/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+              sh "kubectl apply -f k8s_deployment_service.yaml"
+              }
+            }
+        }
     }
 }
